@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <header>
+        <a class='' href="index.html">Home</a>
+        <a href="commonissues.html" disabled>Common Issues</a>
+        <a  class='sel' href="">Current Projects</a>
+        <text title="No Past Projects Yet" href="">Past Projects</text>
+        <div>
+            <text title="not yet implemented" href="">Log In</text>
+            <text title="not yet implemented" href="">log out</text>
+        </div>
+
+    </header>
+
+    <dialog id="helpdia">
+        <h2>Help</h2>
+        <p></p>
+        <button id="closehelp">OK</button>
+
+
+    </dialog>
+
+    <div class="navbar">
+        <h2>Navigation bar</h2>
+
+        <div class="nav">
+            <button id="help">Help</button>
+            <button id="navigate">Navigate</button>
+            <button id="feedback">Provide Feedback</button>
+        </div>
+    </div>
+    <div id="sitecontents">
+
+    </div>
+
+    <div class="feedbackwrapper">
+        <div class="formwrapper">
+            <form action="">
+                <textarea placeholder="Enter input" rows=20 cols="45" ></textarea>
+                <br>
+                <button>Submit Form</button>
+            </form>
+        </div>
+
+        <div id="feedbackview">
+            sdfsdfsdsdf
+            sdf
+        </div>
+    </div>
+
+
+    <style>
+        .navbar {
+            text-align: center;
+            
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+        }
+        .nav button {
+            margin:1em;
+            padding: 1em;
+        }
+
+
+        #sitecontents{
+            border:1px solid black;
+            width: 85%;
+            
+            margin-top: 1em;
+            height:80%;
+            
+            
+        }
+        form {
+            margin-top: 1em;
+        }
+        form button {
+            padding:1em;
+        }
+
+        .feedbackwrapper {
+            display: flex;
+            justify-content: center;
+             
+        }
+    </style>
+
+
+    <script>
+
+        mode = null
+        sitecontents =document.getElementById('sitecontents')
+        helpdia = document.getElementById('helpdia')
+        closehelpdia = document.getElementById('closehelp')
+
+        helpButton = document.getElementById('help')
+        navigateButton = document.getElementById('navigate')
+        feedbackButton = document.getElementById('feedback')
+
+        function resetButtons() {
+
+            navigateButton.style.fontWeight = 'normal';
+            feedbackButton.style.fontWeight = 'normal';
+        }
+
+        // Add event listeners to each button
+        helpButton.addEventListener('click', function() {
+            helpdia.show()
+        });
+        closehelpdia.addEventListener('click', () => {
+            helpdia.close()
+
+        })
+
+        navigateButton.addEventListener('click', function() {
+            resetButtons(); // Reset font weight of all buttons
+            mode = 'navigate'; // Change mode to 'navigate'
+            navigateButton.style.fontWeight = 800; // Make the clicked button's text bold
+        });
+
+        feedbackButton.addEventListener('click', function() {
+
+            resetButtons(); // Reset font weight of all buttons
+            mode = 'feedback'; // Change mode to 'feedback'
+            feedbackButton.style.fontWeight =  800; // Make the clicked button's text bold
+        });
+
+    </script>
+
+    <script >
+
+        originalColors= {}
+        selectedel=null
+        
+       
+                      
+        function loadHTML(ht) {
+            originalColors= {}
+            selectedel=null
+            // alert('loaded')
+            sitecontents=document.getElementById('sitecontents')
+            sitecontents.innerHTML = ht
+
+
+            for(let i =0; i < sitecontents.children.length;i++) {
+            const child = sitecontents.children[i]
+
+            originalColors[child] = child.style.backgroundColor;
+
+            // Add mouseover event listener
+            child.addEventListener('mouseover', function(event) {
+                if(mode == 'feedback' && selectedel!= event.target) {
+                    console.log('triggered')
+                    event.target.style.backgroundColor = 'red';
+                    event.target.style.cursor = 'pointer'
+                }
+            });
+
+            // Add mouseout event listener
+            child.addEventListener('mouseout', function(event) {
+                if(event.target != selectedel){
+                event.target.style.backgroundColor = originalColors[event.target];
+                event.target.style.cursor = 'default'}
+            });
+            child.addEventListener('click', (event) => {
+                if(mode=='feedback'){
+                if(selectedel != null) {
+
+                    // console.log('changed elemetn')
+                    selectedel.style.backgroundColor = originalColors[selectedel]
+                }
+                selectedel = event.target 
+                selectedel.style.backgroundColor='blue'
+}
+            })
+        }
+        }
+        window.onload = function() {
+        loadHTML(`
+
+            <h1 id="el1">sdf</h1>
+            <p id="el2">sdfsdfsdfs</p>
+            <p id="el3">sdfsdfsd</p>
+
+
+            `
+        )
+        }
+
+
+      
+
+
+    </script>
+
+</body>
+</html>

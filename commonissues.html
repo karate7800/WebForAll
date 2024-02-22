@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <style>
+        #unreadable {
+            color: rgb(192, 192, 192);
+        }
+        .error {
+            padding:1em
+        }
+        .error  h1{
+            text-align: center;
+        }
+        .error button {
+            padding:1em;
+            border-radius: .5em;
+            
+            
+        }
+        .sourcecode {
+            font-size: 1.5em;
+        }
+       
+    </style>
+ 
+</head>
+<body>
+
+    <header>
+        <a class='' href="index.html">Home</a>
+        <a href="commonissues.html"  class="sel">Common Issues</a>
+        <a href="">Current Projects</a>
+        <text title="No Past Projects Yet" href="">Past Projects</text>
+    
+        <div>
+            <a href="">Log In</a>
+            <a href="">log out</a>
+        </div>
+
+
+
+        
+    </header>
+    
+
+<div class="error">
+    <h1>Low Contrast Text</h1>
+    <p id="unreadable">Ever try to read text but it's completely unreadable? </p>
+    <p>Low contrast text, or text that is far too close to the site's background colro, is an accessiblity error that cocurs on the vast majority of websites. For how annoying this issue is for users, fixing it is as simple as changing the text color.</p>
+    <p class="sourcecode" >&lt;p style="color=<b class='changesrc' id="contrastsrccode">rgb(192,192,192)</b>"&gt;</p>
+    <button id="lcontrastbut">Fix Now :)</button>
+</div>
+
+<div class="error">
+    <h1>Missing Alt Text</h1>
+    <img id='brimg' src="img/sfdsfd" alt="you'll never know what this image was ;)">
+    <p>Ever see a broken image, and then see the text underneath explaining what that image was? That replacement, or alt text, is crucial to help users understand 
+        what broken media, and allows screen readers to process the image. 
+    </p>
+    <p class="sourcecode">&lt;img src="imageurl.gov" alt=<b id="altsrccode">""</b>&gt;</p>
+    <button id="altbut">Fix Now :)</button>
+</div>
+
+<div class="error">
+    <h1>Broken Links</h1>
+        <a href="" id="broklink">Go Home </a>
+        <p>Ever wanted to vist a link, but found the link either dead or empty? That frustration is very discouraging to potential new userse of the web, with many feeling that they can't use the internet despite these issues being no fault of their own.</p>
+        <p class="sourcecode">&lt;a href=<b id="linksrccode">""</b> /&gt;</p>
+        <button id="broklinkbut">Fix Now :)</button>
+    
+</div>
+
+
+
+<script>
+    // alert()
+    contbut = document.getElementById('lcontrastbut')
+    contbroken=true
+    contbut.addEventListener('click', () => {
+        // alert('hi')
+        if(contbroken) {
+            txt = document.getElementById('unreadable')
+            txt.innerText='You see? Easy Change!'
+            txt.style.color = 'black'
+            contbut.innerText = 'Break Again:()'
+            srccode = document.getElementById('contrastsrccode')
+            srccode.innerText='black'
+            contbroken = false
+        }else{
+            txt = document.getElementById('unreadable')
+            txt.innerText = "Ever try to read text but it's completely unreadable?"
+            txt.style.color = 'rgb(192,192,192)'
+            contbut.innerText = 'Fix Now :)'
+            srccode = document.getElementById('contrastsrccode')
+            srccode.innerText='rgb(192,192,192)'
+            contbroken = true
+
+        }
+    })
+
+    altbut = document.getElementById('altbut')
+    altbroken = true
+    
+    altbut.addEventListener('click', () => {
+        brimg = document.getElementById('brimg')
+        altsrccode = document.getElementById('altsrccode')
+        if (altbroken) {
+            brimg.alt = 'An image of happy kittens'
+            altbut.innerText='Break Again :('
+            altsrccode.innerText='"An image of happy kittens"'
+            altbroken = false
+        } else {
+            brimg.alt = "you'll never know what this image was ;)"
+            altbut.innerText = 'Fix Now :)'
+            altsrccode.innerText='""'
+
+            altbroken = true
+        }
+    })
+
+    broklinkbut = document.getElementById('broklinkbut')
+    linkbroken = true
+    broklinkbut.addEventListener('click', () => {
+        broklink = document.getElementById('broklink')
+        linksrccode = document.getElementById('linksrccode')
+
+        if(linkbroken) {
+            broklink.href = 'index.html'
+            broklinkbut.innerText='Break Again :('
+            linksrccode.innerText="index.html"
+            linkbroken=false
+        }else{
+            broklink.href = ''
+            broklinkbut.innerText='Fix Now :)'
+            linksrccode.innerText=""
+            linkbroken=true
+
+        }
+
+
+
+    })
+</script>
+    
+</body>
+</html>
