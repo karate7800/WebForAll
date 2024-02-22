@@ -1,0 +1,76 @@
+body {
+    background-color: rgb(220, 220, 220);
+}
+
+
+header {
+    display: grid;
+    position: sticky;
+    grid-template-columns: repeat(5,1fr);
+    list-style: none;
+    /* padding:1em; */
+    border: 1px solid black;
+    border-radius: 1em;
+    cursor: default;
+}
+footer { 
+    margin-top:1em;
+    text-align: center;
+    border: 1px solid ;
+    bottom:0;
+}
+header .sel {
+    font-weight: 800 ;
+}
+header * {
+    padding: 1em;
+}
+header a:first {
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: 1em;
+}
+
+header a:last {
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+.nostylebut{
+    color:inherit;
+    text-decoration: none;
+}
+
+header > * {
+    transition:1s ease-in-out;
+    text-decoration: none;
+    color:black;
+
+}
+header a:hover {
+    background-color: rgb(220,220,220);
+}
+
+.homesection {
+    margin-top:1em;
+    border: 1px solid black;
+    padding:1em;
+    border-radius: 1em;
+}
+
+.sampleimages{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+
+.projops {
+    display: flex;
+    justify-content: center;
+
+    
+}
+.projops button {
+    padding:1em;
+    margin-right:1em;
+}
+
+/* site suggestion styles */
