@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <title>Provide Feedback</title>
 </head>
 <body>
     
@@ -22,39 +22,60 @@
 
     <dialog id="helpdia">
         <h2>Help</h2>
-        <p></p>
+        <p>On this page, you review a site, and provide feedback on any element you wish. If you would like to 
+            simply provide general feedback on the page, or navigate it, you can enter navigation mode by 
+            pressing the navigate button. If you would like to comment on a specific element, you can click the provide feedback button, and send feedback 
+            on specifically that element. Press the help button to reopen this menu at any time
+        </p>
         <button id="closehelp">OK</button>
 
 
     </dialog>
 
-    <div class="navbar">
-        <h2>Navigation bar</h2>
 
-        <div class="nav">
-            <button id="help">Help</button>
-            <button id="navigate">Navigate</button>
-            <button id="feedback">Provide Feedback</button>
+
+        <div class="navbar" >
+            <h2>Navigation bar</h2>
+
+            <div class="nav">
+                <button id="help">Help</button>
+                <button id="navigate">Navigate</button>
+                <button id="feedback">Provide Feedback</button>
+            </div>
         </div>
-    </div>
-    <div id="sitecontents">
+        <div id="sitecontents">
 
-    </div>
-
-    <div class="feedbackwrapper">
-        <div class="formwrapper">
-            <form action="">
-                <textarea placeholder="Enter input" rows=20 cols="45" ></textarea>
-                <br>
-                <button>Submit Form</button>
-            </form>
         </div>
 
-        <div id="feedbackview">
-            sdfsdfsdsdf
-            sdf
+        <div class="feedbackwrapper">
+            <div class="formwrapper">
+                <form id='form'>
+                    <textarea required id="textfield" placeholder="Enter input" rows=20 cols="45" ></textarea>
+                    <br>
+                    <label for="issuetype">Select Issue Type</label>
+                    <select name="issuetype" id="issuetype">
+                        <option class="lowcontrast" value="Low Contrast">Low Contrast</option>
+                        <option class='missingalt' value="Missing Alt">Missing Alt Text</option>
+                        <option class='brokenlink' value="Broken Links">Broken Links</option>
+                        <option class="noformplaceholder" value="No Form Placeholder">No Form Placeholder</option>
+                        <option class="emptybutton" value="Empty Button">Empty Buttons</option>
+                        <option value="None" selected>None</option>
+                    </select>
+                    <br>
+                    <button type="submit" id="subfeedback">Add feedback</button>
+                </form>
+            </div>
+
+            <div id="allfeedbackwrapper">
+                <h2>Generated Feedback</h2>
+                <div id="feedbackwrapper"></div>
+
+            </div>
         </div>
-    </div>
+
+
+        <div class="submitfeedback"><button class="submitfeedback">Submit</button></div>
+
 
 
     <style>
@@ -72,9 +93,9 @@
         }
 
 
-        #sitecontents{
+        #sitecontents {
             border:1px solid black;
-            width: 85%;
+            /* width: 85%; */
             
             margin-top: 1em;
             height:80%;
@@ -90,13 +111,259 @@
 
         .feedbackwrapper {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
              
         }
+        .submitfeedback{
+            padding: 1em;
+            margin-top: 1em;
+            text-align: center;
+            bottom:0;
+            border-radius: .5em;
+            font-weight: 800;
+        }
+        select {
+            padding:1em;
+            border-radius: .5em;
+        }
+        select option {
+            padding:1em;
+        }
+
+        .lowcontrast {
+            background-color: lightyellow;
+        }
+        .missingalt {
+            background-color: lightblue;
+        }
+        .brokenlink {
+            background-color: lightgreen;
+        }
+        .noformplaceholder {
+            background-color: lightpink;
+        }
+        .emptybutton {
+            background-color: lightseagreen;
+        }
+  
     </style>
 
-
+<!-- Feedback Management-->
     <script>
+        curPage = 'home'
+        sitePages = {
+            'home': `
+
+           
+            <style> 
+                
+                #sitecontents body {
+                    background-color: rgb(220, 220, 220);
+                }
+                #sitecontents header {
+                    display: grid;
+                    position: fixed;
+                    grid-template-columns: repeat(5,1fr);
+                    list-style: none;
+                    /* padding:1em; */
+                    border: 1px solid black;
+                    border-radius: 1em;
+                    width: 95%;
+                    text-align: center;
+                    /* margin:auto; */
+                    top:0;
+                    background-color: inherit;
+                    cursor: default;
+                    user-select: none;
+                }
+                #sitecontents footer { 
+                    margin-top:1em;
+                    text-align: center;
+                    border: 1px solid ;
+                    bottom:0;
+                }
+                #sitecontents header .sel {
+                    font-weight: 800 ;
+                }
+                #sitecontents header * {
+                    padding: 1em;
+                }
+                #sitecontents header a:first {
+                    border-top-left-radius: inherit;
+                    border-bottom-left-radius: 1em;
+                }
+
+                #sitecontents header a:last {
+                    border-top-right-radius: 1em;
+                    border-bottom-right-radius: 1em;
+                }
+                #sitecontents .nostylebut{
+                    color:inherit;
+                    text-decoration: none;
+                }
+
+                #sitecontents header > * {
+                    transition:1s ease-in-out;
+                    text-decoration: none;
+                    color:black;
+
+                }
+                #sitecontents header a:hover {
+                    background-color: rgb(220,220,220);
+                }
+
+                #sitecontents .homesection {
+                    margin-top:1em;
+                    border: 1px solid black;
+                    padding:1em;
+                    border-radius: 1em;
+                }
+
+                #sitecontents .sampleimages{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    text-align: center;
+                }
+
+                #sitecontents .projops {
+                    display: flex;
+                    justify-content: center;
+
+                    
+                }
+                #sitecontents .projops button {
+                    padding:1em;
+                    margin-right:1em;
+                }
+
+/* site suggestion styles */
+</style>
+
+
+
+    <dialog id="welcome">
+        <h2>Welcome</h2>
+        <p>Ever went ot a site and immediately clicked off because it was impossible ot naviagate? WebForAll
+            is here to help!
+        </p>
+        <button id="closewelcome">OK</button>
+    </dialog>
+
+    <h1>WebForAll</h1>
+
+
+    <div class="homesection intro">
+        <h2>96.35 Of top websites had easily detectable <a href="https://www.w3.org/TR/WCAG20/" >WCAG 2</a> errors </h2>
+
+        <p>Out of all those errors, 96% fall into one of the following 6 categories: </p>
+        <img src="imgs/toperrortypes.png" alt="graph of top error types">
+
+        <p><u><b>ALL</b></u> of these top errors are easily fixable, but are often simply overlooked by devs.</p>
+        <p>Want the opportunity to provide feedback on accessiblity directly to developers working on the websites of tomorrow?</p>
+        <p><b>Sign up today!</b></p>
+        <p>Feel free to explore the site to learn more about accessibility issues on the web, or to provide feedback on your first project  </p>
+    </div>
+     
+       
+        
+
+    <div class="homesection reviews">
+        <div class="review">
+            <h4>User</h1>
+            <p>"Review"</p>
+        </div>
+        <div class="review">
+            <h4>User</h1>
+            <p>"Review"</p>
+        </div>
+        <div class="review">
+            <h14<User/h1>
+            <p>"Review"</p>
+        </div>
+    </div>
+
+    <div class="homesection sampleproject">
+        <h2>Test Website</h2>
+        <h3>Lorem Incorporated</h3>
+        <p>This is the best app description you've ever seen</p>
+        <!--Fix url--><div class="projops"><button>Provide Feedback</button><button>More Info</button></div>
+
+    </div>
+   
+  
+
+
+    
+
+    <footer>
+        Copyright 2024
+    </footer>
+            `
+        }
+        feedbacklist = []
+
+        subfeedback = document.getElementById('subfeedback')
+        form = document.getElementById('form')
+        feedbackwrapper = document.getElementById('feedbackwrapper')
+        textfield=document.getElementById('textfield')
+        issuetype = document.getElementById('issuetype')
+ 
+        form.addEventListener('submit', (event) => {
+
+            event.preventDefault()
+            out = {}
+
+            out['page'] = curPage
+            out['issuetype'] = issuetype.value
+            out['suggestion']=textfield.value
+            // alert(out['suggestion'])
+            if (mode=='feedback' && selectedel != null) {
+                console.log("ihsfd")
+                out['selectedel'] = selectedel
+            }
+
+            console.log(out)
+            el = convDict(out)
+
+            feedbackwrapper.innerHTML += el
+
+            textfield.value=''
+            
+        })
+
+        function convDict(a) {
+           coltable = {
+            'None':'inherit',
+            'Low Contrast': 'lightyellow',
+            'Missing Alt':'lightblue',
+            'Broken Links': 'lightgreen',
+            'No Form Placeholder': 'lightpink',
+            'Empty Button': 'lightseagreen'
+
+           }
+            
+            out=
+            `
+            <div class="indfeedcont" style="margin-bottom:1em;padding:1em;border-radius:1em;background-color: ${coltable[a['issuetype']]}">
+                <div class="lefthalf">
+                    <h4>Page: ${a['page']}</h4>
+            `
+            if(a.hasOwnProperty('selectedel')) {
+                console.log('inhere')
+                out+=`<h5>Selected Element:${selectedel}</h5>`
+            }
+
+             out+=`<p>${a['suggestion']}</p>
+                </div>
+            </div>
+             `
+            
+
+
+            
+            return out
+            
+        }
 
         mode = null
         sitecontents =document.getElementById('sitecontents')
@@ -107,6 +374,11 @@
         navigateButton = document.getElementById('navigate')
         feedbackButton = document.getElementById('feedback')
 
+        function generatefeedback() {
+            alert(feedbacklist)
+
+        }
+       
         function resetButtons() {
 
             navigateButton.style.fontWeight = 'normal';
@@ -115,10 +387,17 @@
 
         // Add event listeners to each button
         helpButton.addEventListener('click', function() {
+            document.body.classList.add('dia-opened');
+
             helpdia.show()
+            // helpdia.style.opacity=1
         });
+      
         closehelpdia.addEventListener('click', () => {
+            document.body.classList.remove('dia-opened');
+
             helpdia.close()
+            // helpdia.style.opacity=1
 
         })
 
@@ -135,66 +414,103 @@
             feedbackButton.style.fontWeight =  800; // Make the clicked button's text bold
         });
 
+     
     </script>
 
+<!--Load Site-->
     <script >
 
         originalColors= {}
         selectedel=null
-        
+        //add orig colors
+
+        function saveOrigColor(el) {
+            originalColors[el] = el.style.backgroundColor
        
+        } 
+
+        function applyEventListeners(element) {
+            // alert(element)
+            // Add mouseover event listener
+            saveOrigColor(element)
+            element.addEventListener('mouseover', function(event) {
+                if (mode == 'feedback' && selectedel != event.target) {
+                    event.target.style.backgroundColor = 'red';
+                    event.target.style.cursor = 'pointer';
+                }
+                event.stopPropagation();
+
+            });
+
+            // Add mouseout event listener
+            element.addEventListener('mouseout', function(event) {
+                event.target.style.cursor = 'default';
+                if (event.target != selectedel) {
+                    event.target.style.backgroundColor = originalColors[event.target];
+                }
+                if(selectedel != null) 
+                    selectedel.style.backgroundColor= 'blue'
+                event.stopPropagation();
+
+            });
+
+            // Add click event listener
+            element.addEventListener('click', function(event) {
+                if (mode == 'feedback') {
+                    // console.log('in feedback')
+                    // console.log(selectedel,event.target)
+                    // if seected is null and not equal to event
+                    if (selectedel == null && event.target != selectedel) {
+                        selectedel = event.target
+                        event.target.style.backgroundColor = 'blue';
+                        console.log('case 1')
+                    }
+                    else if ( selectedel != event.target) {
+                        selectedel.style.backgroundColor = originalColors[selectedel]
+                        // selectedel = event.target;
+                        event.target.style.backgroundColor = 'blue';
+                        console.log(`set el ${selectedel} to blue`)
+                        selectedel = event.target
+                    } 
+                    // if 2 are equal
+                    else if (selectedel == event.target) {
+                        console.log('case 3')
+                        selectedel = null;
+                        event.target.style.backgroundColor = originalColors[event.target];
+                    }
+                }
+                // alert(`selected el: ${selectedel}`)
+                event.stopPropagation();
+            });
+            
+            for (let i = 0; i < element.children.length; i++) {
+                applyEventListeners(element.children[i]);
+            }
+        }             
                       
         function loadHTML(ht) {
             originalColors= {}
+
             selectedel=null
             // alert('loaded')
             sitecontents=document.getElementById('sitecontents')
             sitecontents.innerHTML = ht
 
+            // alert(sitecontents.innerHTML)
+            for(i=0;i<sitecontents.children.length;i++) {
+                el = sitecontents.children[i]
+                applyEventListeners(el)
+                // alert(`Stuck on child ${i}, ${el}`)
 
-            for(let i =0; i < sitecontents.children.length;i++) {
-            const child = sitecontents.children[i]
+            }
 
-            originalColors[child] = child.style.backgroundColor;
 
-            // Add mouseover event listener
-            child.addEventListener('mouseover', function(event) {
-                if(mode == 'feedback' && selectedel!= event.target) {
-                    console.log('triggered')
-                    event.target.style.backgroundColor = 'red';
-                    event.target.style.cursor = 'pointer'
-                }
-            });
-
-            // Add mouseout event listener
-            child.addEventListener('mouseout', function(event) {
-                if(event.target != selectedel){
-                event.target.style.backgroundColor = originalColors[event.target];
-                event.target.style.cursor = 'default'}
-            });
-            child.addEventListener('click', (event) => {
-                if(mode=='feedback'){
-                if(selectedel != null) {
-
-                    // console.log('changed elemetn')
-                    selectedel.style.backgroundColor = originalColors[selectedel]
-                }
-                selectedel = event.target 
-                selectedel.style.backgroundColor='blue'
-}
-            })
+            
         }
-        }
+
+
         window.onload = function() {
-        loadHTML(`
-
-            <h1 id="el1">sdf</h1>
-            <p id="el2">sdfsdfsdfs</p>
-            <p id="el3">sdfsdfsd</p>
-
-
-            `
-        )
+        loadHTML(sitePages['home'])
         }
 
 

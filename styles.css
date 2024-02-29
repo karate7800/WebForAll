@@ -4,14 +4,26 @@ body {
 
 
 header {
-    display: grid;
-    position: sticky;
-    grid-template-columns: repeat(5,1fr);
+    /* display: grid; */
+    /* grid-template-columns: repeat(5,1fr); */
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
     list-style: none;
     /* padding:1em; */
     border: 1px solid black;
     border-radius: 1em;
+    width: 95%;
+    text-align: center;
+    /* margin:auto; */
+    top:0;
+    background-color: inherit;
     cursor: default;
+    
+    user-select: none;
+}
+.siteName {
+    margin-top:3em;
 }
 footer { 
     margin-top:1em;
@@ -19,7 +31,11 @@ footer {
     border: 1px solid ;
     bottom:0;
 }
-header .sel {
+header  {
+    text-decoration:none;
+    color:inherit;
+    color:green !important;
+}sel {
     font-weight: 800 ;
 }
 header * {
@@ -67,6 +83,9 @@ header a:hover {
     justify-content: center;
 
     
+}
+.sel {
+    font-weight: bold;
 }
 .projops button {
     padding:1em;

@@ -3,27 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web For All</title>
+    <title>Document</title>
    
     <link rel="stylesheet" type="text/css" href="styles.css">
 
-    
+    <style>
+        * {
+            color:red !important;
+            opacity: .7;
+        }
+        a {
+            text-decoration:none;
+            color:inherit;
+            color:green !important;
+        }
+        h2 {
+            color: rgb(211, 211, 211) !important
+        }
+        header {
+            opacity: .1;
+        }
+        dialog {
+            opacity: 1 !important;
+            height:80%;
+            background-color: white;
+            z-index: 1;
+            
+        }
+        dialog * {
+            opacity: 1 !important;
+        }
+        
+    </style>
 </head>
 <body>
+    <dialog id="addia">
+        <h2>Very Realistic Ad</h2>
+        <p>Please buy my products today!</p>
+        <p>Please I really want the money</p>
+    </dialog>
 
+    <script>
+        // Define a function to execute after 5 seconds
+        dia = document.getElementById('addia');
+        function executeCode() {
+    // Show dialog
+            dia.show(); 
+            // Disable pointer events on body
+            document.body.style.pointerEvents = 'none';
+            // Set opacity of dialog
+            dia.style.opacity = 1;
+            // Wait for 2 seconds
+            setTimeout(() => {
+                // Close dialog
+                dia.close();
+                // Enable pointer events on body
+                document.body.style.pointerEvents = 'all';
+                // Call the function again after 5 seconds for infinite loop
+                setTimeout(executeCode, 5000);
+            }, 2000);
+        }
+
+        // Start the infinite loop by calling the function
+        executeCode();
+    
+    
+    </script>
     <header>
         <a class='sel' href="index.html">Home</a>
         <a href="commonissues.html"  class="">Common Issues</a>
         <a href="currentprojects.html">Current Projects</a>
-        <a class='' href="badindex.html">Bad Home</a>
+        <a class='' href="badindex.html">Bad home</a>
         <text title="No Past Projects Yet" href="">Past Projects</text>
     
         <div title="Not Yet Implemented">
             <text href="">Log In</text>
             <text href="">log out</text>
         </div>
+
+
+
         
     </header>
+
 
     <dialog id="welcome">
         <h2>Welcome</h2>
@@ -33,14 +95,14 @@
         <button id="closewelcome">OK</button>
     </dialog>
 
-    <h1 class="siteName">WebForAll</h1>
+    <h1 class="siteName"> WebForAll</h1>
 
 
     <div class="homesection intro">
         <h2>96.35% Of top websites had easily detectable <a href="https://www.w3.org/TR/WCAG20/" >WCAG 2</a> errors </h2>
 
         <p>Out of all those errors, 96% fall into one of the following 6 categories: </p>
-        <img src="imgs/toperrortypes.png" alt="graph of top error types">
+        <img src="sdfsddfsfdg" alt="">
 
         <p><u><b>ALL</b></u> of these top errors are easily fixable, but are often simply overlooked by devs.</p>
         <p>Want the opportunity to provide feedback on accessiblity directly to developers working on the websites of tomorrow?</p>
@@ -82,7 +144,7 @@
         <h2>Test Website</h2>
         <h3>Lorem Incorporated</h3>
         <p>This is the best app description you've ever seen</p>
-        <!--Fix url--><div class="projops"><button><a href="provfeedback.html">Provide Feedback</a></button><button>More Info</button></div>
+        <!--Fix url--><div class="projops"><button>Provide Feedback</button><button>More Info</button></div>
 
     </div>
    

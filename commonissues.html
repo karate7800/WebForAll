@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Common Issues</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 
     <style>
@@ -11,7 +11,8 @@
             color: rgb(192, 192, 192);
         }
         .error {
-            padding:1em
+            padding:1em;
+            margin-top: 4em;
         }
         .error  h1{
             text-align: center;
@@ -25,28 +26,29 @@
         .sourcecode {
             font-size: 1.5em;
         }
+        dialog * {
+            color:black;
+        }
        
     </style>
  
 </head>
 <body>
-
     <header>
-        <a class='' href="index.html">Home</a>
+        <a class=' ' href="index.html">Home</a>
         <a href="commonissues.html"  class="sel">Common Issues</a>
-        <a href="">Current Projects</a>
+        <a href="currentprojects.html">Current Projects</a>
+        <a class='' href="badindex.html">Bad Home</a>
         <text title="No Past Projects Yet" href="">Past Projects</text>
     
-        <div>
-            <a href="">Log In</a>
-            <a href="">log out</a>
+        <div title="Not Yet Implemented">
+            <text href="">Log In</text>
+            <text href="">log out</text>
         </div>
-
-
-
         
     </header>
-    
+    <h1 class="siteName">WebForAll</h1>
+
 
 <div class="error">
     <h1>Low Contrast Text</h1>
@@ -74,6 +76,28 @@
         <button id="broklinkbut">Fix Now :)</button>
     
 </div>
+
+<div class="error">
+    <h1>No Form Placeholder</h1>
+    <form id='brokplacform' action="">
+        <input type="text" id="inptext1"><br>
+        <input type="text" id="inptext2"><br>
+        <input type="submit" id="fuck" name="submit">
+    </form>
+    <p>Ever seen a form just with fields you don't know what to do with? The text that appears in the input box that tells you what to do is called placeholder text, and is a crucial part of accessibility that ensures anyone, and screen readers, can understand what the site is.</p>
+    <p>&lt;input type="text" <b id="noplaceholdersrccode">placeholder=""</b> /&gt;</p>
+    <button id="formplacebtn">Fix Now :)</button>
+
+</div>
+
+<div class="error">
+    <h1>Empty Buttons</h1>
+    <button id="emptybtn"></button>
+    <p>From a young age, we're all taught to not click links and random buttons from strangers. While the rise of the internet means that has become essentially unavoidable, it still generally a good idea to double check what all links and buttons do. But what about a button with no text, and no guidance? While an able bodied user might be able to figure out what it does through context, this is not nearly as simple for the less able who have trouble understanding what the site's context is.</p>
+    <p>&lt;button onclick="downloadFile"&gt;<b id="brokenemptybtnsrccode"></b>&lt;/button&gt;</p>
+    <button id="fixbrokenbtn">Fix Now :)</button>
+</div>
+
 
 
 
@@ -126,6 +150,7 @@
     broklinkbut = document.getElementById('broklinkbut')
     linkbroken = true
     broklinkbut.addEventListener('click', () => {
+    
         broklink = document.getElementById('broklink')
         linksrccode = document.getElementById('linksrccode')
 
@@ -145,7 +170,82 @@
 
 
     })
+
+</script>   
+
+<script>
+
+    formplacebtn = document.getElementById('formplacebtn')
+    formplacebroken = true
+    brokplacform = document.getElementById('brokplacform')
+
+    inptext1 = document.getElementById('inptext1')
+    inptext2 = document.getElementById('inptext2')
+
+    brokplacform.addEventListener('submit', (event) => {
+        event.preventDefault()
+        if(formplacebroken) {
+            alert('Invalid Form Input! please try again.')
+        }else {
+            alert('Form submitted!')
+        }
+    })
+
+    // button to fix no placeholder
+    formplacebtn.addEventListener('click', () => {
+        incorrectplaceholder = document.getElementById('noplaceholdersrccode')
+        if(formplacebroken) {
+            incorrectplaceholder.innerText = 'placeholder="Name"'
+            formplacebroken = false
+            inptext1.value = ''
+            inptext2.value = ''
+
+            inptext1.placeholder='Name'
+            inptext2.placeholder='Email'
+            formplacebtn.innerText = 'Break Again :('
+        } else {
+            incorrectplaceholder.innerText = 'placeholder=""'
+            formplacebroken = true
+            inptext1.value = ''
+            inptext2.value = ''
+
+            inptext1.placeholder=''
+            inptext2.placeholder=''
+            formplacebtn.innerText = 'Fix now :)'
+
+        }
+    })
 </script>
     
+<script>
+    emptybtn = document.getElementById('emptybtn')
+    fixemptybtn = document.getElementById('fixbrokenbtn')
+    emptybtnbroken = true
+    brokenemptybtnsrccode = document.getElementById('brokenemptybtnsrccode')
+
+    emptybtn.addEventListener('click', ()=> {
+        alert('Downloading Virus...\n\n\n\nJust Kidding')
+    })
+
+    fixemptybtn.addEventListener('click', () => {
+        if(emptybtnbroken) {
+            brokenemptybtnsrccode.innerText = 'Download File'
+            emptybtnbroken=false
+            fixemptybtn.innerText = 'Break Again :('
+            emptybtn.innerText = 'Download Totally Trustworthy File'
+        } else {
+            brokenemptybtnsrccode.innerText = ''
+            emptybtnbroken=true
+            fixemptybtn.innerText = 'Fix Now :)'
+            emptybtn.innerText = ''
+        }
+        
+    })
+
+
+
+</script>
+
+
 </body>
 </html>
